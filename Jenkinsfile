@@ -2,16 +2,30 @@ pipeline
 {
 agent any
 stages
-{
-stage('prebuild')
-{
-steps{sh 'echo initialize scm'}
-}
+{ stage ('scm checkout')
+   { 
+       steps {sh 'echo code-is-downloading'}
+    }
 
-stage('build')
-{
-steps{sh 'echo create deployable package'}
-}
+   stage ('create deployable package')
+   { 
+       steps {sh 'echo created-artifacts'}
+    }
+
+    stage ('deploy-to-dev-env')
+   { 
+       steps {sh 'echo deploy-to-dev-env'}
+    }
+
+   stage ('Get approval from QA manager')
+   { steps { input 'please approve the pipeline for qa deployment?'} }
+
+
+  stage ('deploy-to-qa-env')
+   { 
+       steps {sh 'echo deploy-to-qa-env'}
+    }
+   
 
 }
 }
